@@ -1,6 +1,6 @@
 {
   "name": "react-native-static-map",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React Native component for getting static maps from Google, Yandex, MapBox and others",
   "main": "index.js",
   "repository": {

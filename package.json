@@ -1,0 +1,22 @@
+{
+  "name": "react-native-static-map",
+  "version": "0.0.1",
+  "description": "React Native component for getting static maps from Google, Yandex, MapBox and others",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeandgraphics/react-native-static-map.git"
+  },
+  "keywords": [
+    "react-component",
+    "react-native",
+    "static-maps",
+    "ios",
+    "android"
+  ],
+  "author": "George Viazemsky <code@and.graphics>",
+  "license": "GPL-3.0",
+  "peerDependencies": {
+    "react-native": ">=0.6.0"
+  }
+}

@@ -1,14 +1,9 @@
+import * as Constants from './Constants';
 import Yandex from './providers/Yandex';
 
-const TYPES = {
-	HYBRID: 'hybrid',
-	SATELLITE: 'satellite',
-	ROADMAP: 'roadmap',
-};
+class StaticMap {}
 
-class StaticMap {
-	static TYPES = TYPES;
-}
+StaticMap.Types = Constants.TYPES;
 
 StaticMap.Yandex = Yandex;
 

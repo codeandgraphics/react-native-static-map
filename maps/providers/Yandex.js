@@ -1,11 +1,6 @@
-import {Image, PixelRatio} from 'react-native';
+import {Image} from 'react-native';
 import React, {Component, PropTypes} from 'react';
-import StaticMap from '../StaticMap';
-
-const defaultMapScale = ()=> {
-	const isRetina = PixelRatio.get() >= 2;
-	return isRetina ? 2 : 1;
-};
+import * as Constants from '../Constants';
 
 const ROOT_URL = 'https://static-maps.yandex.ru/1.x/?';
 
@@ -39,13 +34,13 @@ class Yandex extends Component {
 
 		zoom: PropTypes.number,
 
-		type: PropTypes.oneOf(StaticMap.TYPES),
+		type: PropTypes.oneOf(Constants.TYPES),
 		locale: PropTypes.oneOf(LOCALES)
 	};
 
 	static defaultProps = {
-		scale: defaultMapScale(),
-		type: StaticMap.TYPES.ROADMAP,
+		scale: Constants.mapScale(),
+		type: Constants.DEFAULT_TYPE,
 		zoom: 10
 	};
 
@@ -79,16 +74,15 @@ class Yandex extends Component {
 	}
 
 	typeMapper(type) {
-		if(type === StaticMap.TYPES.SATELLITE) {
-			return 'sat';
-		}
-
-		if(type === StaticMap.TYPES.ROADMAP) {
-			return 'map';
-		}
-
-		if(type === StaticMap.TYPES.HYBRID) {
-			return 'sat,skl';
+		switch (type) {
+			case Constants.TYPES.SATELLITE:
+				return 'sat';
+			case Constants.TYPES.HYBRID:
+				return 'sat,skl';
+			case Constants.TYPES.ROADMAP:
+				return 'map';
+			default:
+				return Constants.DEFAULT_TYPE;
 		}
 	}
 }

@@ -1,9 +1,15 @@
-import YandexMap from './YandexMap';
+import Yandex from './providers/Yandex';
+
+const TYPES = {
+	HYBRID: 'hybrid',
+	SATELLITE: 'satellite',
+	ROADMAP: 'roadmap',
+};
 
 class StaticMap {
-
+	static TYPES = TYPES;
 }
 
-StaticMap.Yandex = YandexMap;
+StaticMap.Yandex = Yandex;
 
 export default StaticMap;

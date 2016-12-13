@@ -1,5 +1,6 @@
 import {Image, PixelRatio} from 'react-native';
 import React, {Component, PropTypes} from 'react';
+import StaticMap from '../StaticMap';
 
 const defaultMapScale = ()=> {
 	const isRetina = PixelRatio.get() >= 2;
@@ -17,13 +18,6 @@ const LOCALES = {
 	tr_TR: 'tr_TR'
 };
 
-const MAP_TYPES = {
-	NAMES: 'skl',
-	TRAFFIC: 'trf',
-	SATELLITE: 'sat',
-	ROADMAP: 'map',
-};
-
 //Ignore image source
 const {source, ...imagePropTypes} = Image.propTypes;
 
@@ -31,7 +25,6 @@ class Yandex extends Component {
 
 	static rootUrl = ROOT_URL;
 	static locales = LOCALES;
-	static mapTypes = MAP_TYPES;
 
 	static propTypes = {
 		...imagePropTypes,
@@ -46,13 +39,13 @@ class Yandex extends Component {
 
 		zoom: PropTypes.number,
 
-		mapType: PropTypes.arrayOf(MAP_TYPES),
+		type: PropTypes.oneOf(StaticMap.TYPES),
 		locale: PropTypes.oneOf(LOCALES)
 	};
 
 	static defaultProps = {
 		scale: defaultMapScale(),
-		mapType: [MAP_TYPES.ROADMAP],
+		type: StaticMap.TYPES.ROADMAP,
 		zoom: 10
 	};
 
@@ -73,14 +66,30 @@ class Yandex extends Component {
 			size,
 			scale,
 			format,
-			mapType
+			type,
+			locale
 		} = this.props;
 
 		const {width, height} = size;
 		const rootUrl = this.constructor.rootUrl;
+		const mappedType = this.typeMapper(type);
 
 		return `${rootUrl}?lang=${locale}&ll=${latitude},${longitude}&size=${width},${height}` +
-			`&z=${zoom}&l=${mapType}&pt=32.810152,39.889847,pm2rdl1~32.870152,39.869847,pm2rdl99`;
+			`&z=${zoom}&l=${mappedType}&pt=32.810152,39.889847,pm2rdl1~32.870152,39.869847,pm2rdl99`;
+	}
+
+	typeMapper(type) {
+		if(type === StaticMap.TYPES.SATELLITE) {
+			return 'sat';
+		}
+
+		if(type === StaticMap.TYPES.ROADMAP) {
+			return 'map';
+		}
+
+		if(type === StaticMap.TYPES.HYBRID) {
+			return 'sat,skl';
+		}
 	}
 }
 

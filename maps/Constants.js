@@ -1,3 +1,5 @@
+//@flow
+
 import {PixelRatio} from 'react-native';
 
 export const TYPES = {

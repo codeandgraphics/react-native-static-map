@@ -1,3 +1,5 @@
+//@flow
+
 import * as Constants from './Constants';
 import Yandex from './providers/Yandex';
 
